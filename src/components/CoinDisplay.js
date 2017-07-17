@@ -9,23 +9,82 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-const coincapFrontDataMap = {
-	// position24: 'Market Position',
-	short: 'Ticker',
+const coinColumns = {
+	// position24: '#',
+	short: 'Coin',
 	// long: 'Name',
 	mktcap: 'Market Cap',
 	usdVolume: 'Volume',
 	price: 'Price',
-	// cap24hrChange: '% Change (24h)'
+	cap24hrChange: '24h %',
+	github: 'GitHub',
+	twitter: 'Twitter',
+	reddit: 'Reddit',
 }
 
-function formatTableData(value) {
-	const intValue = _.parseInt(value);
-	if (intValue) {
-		if (value > 10 * 1000) {
-			return `$${intValue.toLocaleString()}`;
+const SOCIAL_URLS = {
+	'reddit': 'https://www.reddit.com/r',
+	'twitter': 'https://www.twitter.com',
+	'github': 'https://www.github.com'
+}
+
+function renderSocialLink(site, account) {
+	if (!account) {
+		return '';
+	}
+
+	const siteUrlPrefix = SOCIAL_URLS[site];
+	if (!siteUrlPrefix) {
+		console.warn(`Invalid site: ${site}`, site);
+		return '';
+	}
+
+	return (
+		<a href={`${siteUrlPrefix}/${account}`} target='_blank'>
+			{account}
+		</a>
+	);
+}
+
+
+const GitHub = (repo) => {
+	return renderSocialLink('github', repo)
+}
+
+const Twitter = (account) => {
+	return renderSocialLink('twitter', account)
+}
+
+const Reddit = (account) => {
+	return renderSocialLink('reddit', account);
+}
+
+function formatTableData(key, value, obj) {
+	if (key === 'short') {
+		return `${obj.long} (${obj.short})`;
+	}
+
+	const currencyKeys = ['price', 'mktcap', 'usdVolume'];
+	if (_.includes(currencyKeys, key)) {
+		const intValue = _.parseInt(value);
+		if (intValue) {
+			if (value > 10 * 1000) {
+				return `$${intValue.toLocaleString()}`;
+			}
+			return _.round(intValue, 2);
 		}
-		return _.round(value, 2);
+	}
+
+	if (key === 'github') {
+		return GitHub(value);
+	}
+
+	if (key === 'twitter') {
+		return Twitter(value);
+	}
+
+	if (key === 'reddit') {
+		return Reddit(value);
 	}
 
 	return value;
@@ -33,8 +92,8 @@ function formatTableData(value) {
 
 function CoinTableBody({list}) {
 	const rows = _.map(list, (listItem) => {
-		const columns = _.map(coincapFrontDataMap, (value, key) => {
-			const displayData = formatTableData(listItem[key]);
+		const columns = _.map(coinColumns, (value, key) => {
+			const displayData = formatTableData(key, listItem[key], listItem);
 			return (
 				<TableRowColumn key={`cd_column_${key}`}>
 					{displayData}
@@ -61,11 +120,8 @@ function CoinTableBody({list}) {
 	);
 }
 
-export function CoinDisplay(
-		{frontList, limit=30, orderBy=['mktcap'], order=['desc']}) {
-	const renderedList = _.orderBy(
-		_.slice(frontList, 0, limit), orderBy, order);
-	const headerColumns = _.map(coincapFrontDataMap, (value, key) => {
+export function CoinDisplay({coinList }) {
+	const headerColumns = _.map(coinColumns, (value, key) => {
 		return (
 			<TableRowColumn
 				key={`cd_header_${key}`}
@@ -89,7 +145,7 @@ export function CoinDisplay(
 					{headerColumns}
 				</TableRow>
 			</TableHeader>
-			{CoinTableBody({list: renderedList})}
+			{CoinTableBody({list: coinList})}
 		</Table>
 	);
 }
