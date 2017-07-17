@@ -2,7 +2,7 @@
   "name": "aegeus",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mingdom.github.io/aegeus",
+  "homepage": "https://mingdom.github.io/aegeus",
   "dependencies": {
     "lodash": "^4.17.4",
     "material-ui": "^0.18.6",

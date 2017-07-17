@@ -5,7 +5,7 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {CoinDisplay} from './components/CoinDisplay';
 
-const appFriendlyName = "Aegeus";
+const appFriendlyName = "mingdom.io // Aegeus";
 
 function jsonGet(url) {
 	const fetchParams = {
