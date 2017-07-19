@@ -18,7 +18,7 @@ const initialState = {
 	orderBy: ['mktcap'],
 	orders: ['desc'],
 	blacklist: ['XRP', 'ETC', 'STRAT', 'BTS', 'USDT', 'ANS'],
-	whitelist: ['CVC', 'GNO', 'GNT', 'SC']
+	whitelist: ['CVC', 'GNO', 'GNT', 'SC', 'UBQ', 'DCR']
 }
 
 class App extends Component {

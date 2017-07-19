@@ -1,5 +1,6 @@
 import React from 'react';
 import * as _ from 'lodash';
+import { SocialLinks } from './SocialLinks';
 
 import {
   Table,
@@ -17,46 +18,7 @@ const coinColumns = {
 	usdVolume: 'Volume',
 	price: 'Price',
 	cap24hrChange: '24h %',
-	github: 'GitHub',
-	twitter: 'Twitter',
-	reddit: 'Reddit',
-}
-
-const SOCIAL_URLS = {
-	'reddit': 'https://www.reddit.com/r',
-	'twitter': 'https://www.twitter.com',
-	'github': 'https://www.github.com'
-}
-
-function renderSocialLink(site, account) {
-	if (!account) {
-		return '';
-	}
-
-	const siteUrlPrefix = SOCIAL_URLS[site];
-	if (!siteUrlPrefix) {
-		console.warn(`Invalid site: ${site}`, site);
-		return '';
-	}
-
-	return (
-		<a href={`${siteUrlPrefix}/${account}`} target='_blank'>
-			{account}
-		</a>
-	);
-}
-
-
-const GitHub = (repo) => {
-	return renderSocialLink('github', repo)
-}
-
-const Twitter = (account) => {
-	return renderSocialLink('twitter', account)
-}
-
-const Reddit = (account) => {
-	return renderSocialLink('reddit', account);
+	social: 'Social'
 }
 
 function formatTableData(key, value, obj) {
@@ -75,16 +37,8 @@ function formatTableData(key, value, obj) {
 		}
 	}
 
-	if (key === 'github') {
-		return GitHub(value);
-	}
-
-	if (key === 'twitter') {
-		return Twitter(value);
-	}
-
-	if (key === 'reddit') {
-		return Reddit(value);
+	if (key === 'social') {
+		return (<SocialLinks data={value}/>);
 	}
 
 	return value;

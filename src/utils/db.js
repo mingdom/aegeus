@@ -3,87 +3,132 @@ import * as _ from 'lodash';
 const DB_OBJECT = [
 	{
 		"ticker": "BTC",
-		"github": "bitcoin/bitcoin",
-		"twitter": "bitcoin",
-		"reddit": "bitcoin",
+		"social": {
+			"github": "bitcoin/bitcoin",
+			"twitter": "bitcoin",
+			"reddit": "bitcoin",
+		}
 	},
 	{
 		"ticker": "ETH",
-		"github": "ethereum/go-ethereum",
-		"twitter": "ethereum",
-		"reddit": "ethereum",
+		"social": {
+			"github": "ethereum/go-ethereum",
+			"twitter": "ethereum",
+			"reddit": "ethereum",
+		}
 	},
 	{
 		"ticker": "LTC",
-		"github": "litecoin-project/litecoin",
-		"twitter": "litecoin",
-		"reddit": "litecoin",
+		"social": {
+			"github": "litecoin-project/litecoin",
+			"twitter": "litecoin",
+			"reddit": "litecoin",
+		}
 	},
 	{
 		"ticker": "DASH",
-		"github": "dashpay/dash",
-		"twitter": "dashpay",
-		"reddit": "dashpay",
+		"social": {
+			"github": "dashpay/dash",
+			"twitter": "dashpay",
+			"reddit": "dashpay",
+		}
 	},
 	{
 		"ticker": "XEM",
-		"github": "NemProject/nem.core",
-		"twitter": "NEMofficial",
-		"reddit": "nem",
+		"social": {
+			"github": "NemProject/nem.core",
+			"twitter": "NEMofficial",
+			"reddit": "nem",
+		}
 	},
 	{
 		"ticker": "MIOTA",
-		"github": "iotaledger/wallet",
-		"twitter": "iotatoken",
-		"reddit": "Iota",
+		"social": {
+			"github": "iotaledger/wallet",
+			"twitter": "iotatoken",
+			"reddit": "Iota",
+			"slack": "https://slack.iota.org/"
+		}
 	},
 	{
 		"ticker": "XMR",
-		"github": "monero-project/monero",
-		"twitter": "monerocurrency",
-		"reddit": "monero",
+		"social": {
+			"github": "monero-project/monero",
+			"twitter": "monerocurrency",
+			"reddit": "monero",
+		}
 	},
 	{
 		"ticker": "EOS",
-		"github": "EOSIO/eos",
-		"twitter": "eos_io",
-		"reddit": "eos",
+		"social": {
+			"github": "EOSIO/eos",
+			"twitter": "eos_io",
+			"reddit": "eos",
+		}
 	},
 	{
 		"ticker": "ZEC",
-		"github": "zcash/zcash",
-		"twitter": "zcashco",
-		"reddit": "zec",
+		"social": {
+			"github": "zcash/zcash",
+			"twitter": "zcashco",
+			"reddit": "zec",
+		}
 	},
 	{
 		"ticker": "GNT",
-		"github": "golemfactory/golem",
-		"twitter": "golemproject",
-		"reddit": "GolemProject",
+		"social": {
+			"github": "golemfactory/golem",
+			"twitter": "golemproject",
+			"reddit": "GolemProject",
+		}
 	},
 	{
 		"ticker": "CVC",
-		"github": null,
+		"social": {
+		"github": false,
 		"twitter": "civickey",
 		"reddit": "civicplatform",
+		}
 	},
 	{
 		"ticker": "SC",
-		"github": "NebulousLabs/Sia",
-		"twitter": "siatechhq",
-		"reddit": "siacoin",
+		"social": {
+			"github": "NebulousLabs/Sia",
+			"twitter": "siatechhq",
+			"reddit": "siacoin",
+		}
 	},
 	{
 		"ticker": "GNO",
-		"github": "ConsenSys/gnosis-contracts",
-		"twitter": "gnosisPM",
-		"reddit": "gnosisPM",
+		"social": {
+			"github": "ConsenSys/gnosis-contracts",
+			"twitter": "gnosisPM",
+			"reddit": "gnosisPM",
+		}
 	},
 	{
 		"ticker": "STEEM",
-		"github": "steemit/steem",
-		"twitter": "Steemit",
-		"reddit": "steemit",
+		"social": {
+			"github": "steemit/steem",
+			"twitter": "Steemit",
+			"reddit": "steemit",
+		}
+	},
+	{
+		"ticker": "UBQ",
+		"social": {
+			"github": "ubiq/go-ubiq",
+			"twitter": "ubiqsmart",
+			"reddit": "Ubiq",
+		}
+	},
+	{
+		"ticker": "DCR",
+		"social": {
+			"github": "decred/dcrd",
+			"twitter": "decredproject",
+			"reddit": "decredproject",
+		}
 	},
 ]
 
