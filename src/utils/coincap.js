@@ -1,4 +1,4 @@
-import * as utils from '.';
+import * as utils from '../utils';
 
 export function getFront() {
 	const coincapFrontApi = 'https://coincap.io/front';
