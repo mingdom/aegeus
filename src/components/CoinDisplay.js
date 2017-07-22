@@ -29,7 +29,7 @@ function formatTableData(key: TableDataKey, value, obj) {
 	}
 
 	const currencyKeys = ["price", "mktcap", "usdVolume"];
-	
+
 	if (_.includes(currencyKeys, key)) {
 		const intValue = _.parseInt(value);
 		if (intValue) {

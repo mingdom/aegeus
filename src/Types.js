@@ -1,4 +1,4 @@
-export interface CoinCapItem {
+export type CoinCapItem = {
     cap24hrChange: string,
     mktcap: string,
     price: string,
