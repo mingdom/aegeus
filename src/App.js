@@ -1,16 +1,25 @@
 /* @flow */
 import React, { Component } from 'react';
 
-/** Material UI */
+// Redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// Library imports
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {CoinDisplay} from './components/CoinDisplay';
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import * as _ from 'lodash';
-
-import * as coincap from './utils/coincap';
-import {getUberObject} from './utils/db';
-
+import * as CoinListActions from './redux/coinlist';
 import styled from 'styled-components';
+import FlatButton from 'material-ui/FlatButton';
+
+// Project imports
+import { CoinDisplay } from './components/CoinDisplay';
+import { CoinRefreshButton } from './components/CoinRefreshButton';
+import { getUberObject } from './utils/db';
+import type { CoinList } from './Types';
+
+injectTapEventPlugin();
 
 export const App = styled.div`
   text-align: center;
@@ -23,68 +32,40 @@ export const AppHeader = styled.h2`
 	margin: 0;
 `;
 
-type AppState = {
-	blacklist: string[],
-	coinList: any[],
-	limit: number,
-	orderBy: string[],
-	orders: string[],
-	topLimit: number,
-	whitelist: string[]
+function formatCoinList(coinList: CoinList) {
+	// TODO: normalize data, some things are string some are not...
+	const { whitelist, blacklist, limit, orderBy, orders } = coinList;
+	const whiteCoinList = _.filter(coinList.data, (o) => _.includes(whitelist, o.short));
+	let filteredCoinList = _.filter(coinList.data, (o) => !_.includes(blacklist, o.short));
+	filteredCoinList = _.slice(filteredCoinList, 0, limit);
+	filteredCoinList = _.union(filteredCoinList, whiteCoinList);
+	filteredCoinList = _.orderBy(filteredCoinList, orderBy, orders);
+	return _.map(filteredCoinList, (coinObj) => {
+		return getUberObject(coinObj);
+	});
 }
 
-type AppProps = {}
-
-const initialState: AppState = {
-	coinList: [],
-	topLimit: 100,
-	limit: 10,
-	orderBy: ['mktcap'],
-	orders: ['desc'],
-	blacklist: ['XRP', 'ETC', 'STRAT', 'BTS', 'USDT', 'ANS'],
-	whitelist: ['CVC', 'GNO', 'GNT', 'SC', 'UBQ', 'DCR']
+function testThis() {
+	console.log('hi!');
 }
 
-class AppImpl extends Component {
-	state: AppState;
-
-	constructor(props: AppProps) {
-		super(props);
-		this.state = initialState;
-	}
-
-	getFinalCoinList(fullList: any) {
-		// TODO: normalize data, some things are string some are not...
-		const { whitelist, blacklist, limit, topLimit, orderBy, orders } = this.state;
-		const topCoinList = _.slice(fullList, 0, topLimit);
-		const whiteCoinList = _.filter(topCoinList, (o) => _.includes(whitelist, o.short));
-		let filteredCoinList = _.filter(topCoinList, (o) => !_.includes(blacklist, o.short));
-		console.debug('before: ', filteredCoinList);
-		filteredCoinList = _.slice(filteredCoinList, 0, limit);
-		filteredCoinList = _.union(filteredCoinList, whiteCoinList);
-		filteredCoinList = _.orderBy(filteredCoinList, orderBy, orders);
-		const coinList = _.map(filteredCoinList, (coinObj) => {
-			return getUberObject(coinObj);
-		});
-		console.debug('after: ', coinList);
-		return coinList;
-	}
-
-	componentDidMount() {
-		coincap.getFront()
-			.then((data) => {
-				this.setState({coinList: this.getFinalCoinList(data)});
-			});
-	}
+class AppContainer extends Component {
+	props: {
+		coinList: CoinList,
+		coinListActions: any
+	};
 
   render() {
-    console.debug('render coinList', this.state.coinList);
-    return (
+		const { coinList, coinListActions } = this.props;
+
+		return (
 			<MuiThemeProvider>
 				<App>
 					<AppHeader>Aegeus</AppHeader>
-					<div className="App-body">
-						<CoinDisplay coinList={this.state.coinList}/>
+					<div>
+						<FlatButton label='Refresh' onTouchTap={testThis()} />
+
+						<CoinDisplay coinList={formatCoinList(coinList)}/>
 					</div>
 				</App>
 			</MuiThemeProvider>
@@ -92,4 +73,18 @@ class AppImpl extends Component {
   }
 }
 
-export default AppImpl;
+const mapStateToProps = (state) => {
+	return {
+		coinList: state.coinList
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		coinListActions: bindActionCreators(CoinListActions, dispatch)
+	}
+}
+
+export default connect(
+	mapStateToProps, mapDispatchToProps
+)(AppContainer);

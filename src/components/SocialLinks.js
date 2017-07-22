@@ -33,14 +33,14 @@ function renderSocialLink(site, account): ?React.Element<any> {
 	}
 
 	return (
-		<a href={`${socialData.url}/${account}`} target='_blank'>
+		<a href={`${socialData.url}/${account}`} key={socialData.url} target='_blank'>
 			{socialData.icon({size: 18})}
 		</a>
 	);
 }
 
-export const SocialLinks = (links: { data: any[] }) => {
-	const socialLinks = _.map(links.data, (account, site) =>
+export const SocialLinks = (props: { data: any[] }) => {
+	const socialLinks = _.map(props.data, (account, site) =>
 		renderSocialLink(site, account));
 	return (
 		<div>

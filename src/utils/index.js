@@ -1,8 +1,10 @@
 /* @flow */
-export function jsonGet(url: string) {
+export async function jsonGet(url: string) {
 	const fetchParams = {
 		method: 'GET',
 		mode: 'cors',
 	}
-	return fetch(url, fetchParams);
+
+	const res = await fetch(url, fetchParams);
+	return res.json();
 }
