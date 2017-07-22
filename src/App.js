@@ -1,6 +1,5 @@
 /* @flow */
 import React, { Component } from 'react';
-import './App.css';
 
 /** Material UI */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -11,19 +10,31 @@ import * as _ from 'lodash';
 import * as coincap from './utils/coincap';
 import {getUberObject} from './utils/db';
 
+import styled from 'styled-components';
+
+export const App = styled.div`
+  text-align: center;
+`;
+
+export const AppHeader = styled.h2`
+	background-color: #222;
+  line-height: 55px;
+  color: white;
+	margin: 0;
+`;
+
 type AppState = {
-    blacklist: string[],
-    coinList: any[],
-    limit: number,
-    orderBy: string[],
-    orders: string[],
-    topLimit: number,
-    whitelist: string[]
+	blacklist: string[],
+	coinList: any[],
+	limit: number,
+	orderBy: string[],
+	orders: string[],
+	topLimit: number,
+	whitelist: string[]
 }
 
 type AppProps = {}
 
-const appFriendlyName = "mingdom.io // Aegeus";
 const initialState: AppState = {
 	coinList: [],
 	topLimit: 100,
@@ -34,7 +45,7 @@ const initialState: AppState = {
 	whitelist: ['CVC', 'GNO', 'GNT', 'SC', 'UBQ', 'DCR']
 }
 
-class App extends Component {
+class AppImpl extends Component {
 	state: AppState;
 
 	constructor(props: AppProps) {
@@ -70,17 +81,15 @@ class App extends Component {
     console.debug('render coinList', this.state.coinList);
     return (
 			<MuiThemeProvider>
-				<div className="App">
-					<div className="App-header">
-						<h2>{appFriendlyName}</h2>
-					</div>
+				<App>
+					<AppHeader>Aegeus</AppHeader>
 					<div className="App-body">
 						<CoinDisplay coinList={this.state.coinList}/>
 					</div>
-				</div>
+				</App>
 			</MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default AppImpl;
