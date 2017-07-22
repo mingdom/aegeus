@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import './App.css';
 
@@ -10,8 +11,20 @@ import * as _ from 'lodash';
 import * as coincap from './utils/coincap';
 import {getUberObject} from './utils/db';
 
+type AppState = {
+    blacklist: string[],
+    coinList: any[],
+    limit: number,
+    orderBy: string[],
+    orders: string[],
+    topLimit: number,
+    whitelist: string[]
+}
+
+type AppProps = {}
+
 const appFriendlyName = "mingdom.io // Aegeus";
-const initialState = {
+const initialState: AppState = {
 	coinList: [],
 	topLimit: 100,
 	limit: 10,
@@ -22,12 +35,14 @@ const initialState = {
 }
 
 class App extends Component {
-	constructor(props) {
+	state: AppState;
+
+	constructor(props: AppProps) {
 		super(props);
 		this.state = initialState;
 	}
 
-	getFinalCoinList(fullList) {
+	getFinalCoinList(fullList: any) {
 		// TODO: normalize data, some things are string some are not...
 		const { whitelist, blacklist, limit, topLimit, orderBy, orders } = this.state;
 		const topCoinList = _.slice(fullList, 0, topLimit);

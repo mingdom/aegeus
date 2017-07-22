@@ -1,4 +1,6 @@
+/* @flow */
 import * as _ from 'lodash';
+import { CoinCapItem } from '../Types';
 
 const DB_OBJECT = [
 	{
@@ -132,11 +134,11 @@ const DB_OBJECT = [
 	},
 ]
 
-export function getObjectByTicker(ticker) {
+export function getObjectByTicker(ticker: string) {
 	return _.find(DB_OBJECT, (o) => o.ticker === ticker);
 }
 
-export function getUberObject(coincapObj) {
+export function getUberObject(coincapObj: CoinCapItem) {
 	const key = coincapObj.short;
 	const dbObj = getObjectByTicker(key);
 	return _.extend(coincapObj, dbObj);

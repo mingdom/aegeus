@@ -1,3 +1,4 @@
+/* @flow */
 import React from 'react';
 import * as _ from 'lodash';
 import FaTwitterSquare from 'react-icons/lib/fa/twitter-square';
@@ -20,15 +21,15 @@ const SOCIAL_DATA = {
 }
 
 
-function renderSocialLink(site, account) {
+function renderSocialLink(site, account): ?React.Element<any> {
 	if (!account) {
-		return '';
+		return null;
 	}
 
 	const socialData = SOCIAL_DATA[site];
 	if (!socialData) {
 		console.warn(`Invalid site: ${site}`, site);
-		return '';
+		return null;
 	}
 
 	return (
@@ -38,12 +39,12 @@ function renderSocialLink(site, account) {
 	);
 }
 
-export const SocialLinks = ({ data }) => {
-	const links = _.map(data, (account, site) =>
+export const SocialLinks = (links: { data: any[] }) => {
+	const socialLinks = _.map(links.data, (account, site) =>
 		renderSocialLink(site, account));
 	return (
 		<div>
-			{links}
+			{socialLinks}
 		</div>
 	);
 }

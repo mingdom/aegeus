@@ -10,7 +10,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-icons": "^2.2.5",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "flow": "flow"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "eslint-config-react-app": "^1.0.5",
+    "flow-bin": "^0.51.0",
     "gh-pages": "^1.0.0"
   }
 }
