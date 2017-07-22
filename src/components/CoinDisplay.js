@@ -2,7 +2,7 @@
 import React from 'react';
 import * as _ from 'lodash';
 import { SocialLinks } from './SocialLinks';
-import { CoinCapItem, TableDataKey } from '../Types';
+import { CoinCapItem, TableDataKey, CoinList } from '../Types';
 
 import {
   Table,
@@ -77,7 +77,7 @@ function CoinTableBody({list}) {
 	);
 }
 
-export function CoinDisplay(value: { coinList: any }) {
+export function CoinDisplay(props: { coinList: CoinList }) {
 	const headerColumns = _.map(coinColumns, (value, key) => {
 		return (
 			<TableRowColumn
@@ -102,7 +102,7 @@ export function CoinDisplay(value: { coinList: any }) {
 					{headerColumns}
 				</TableRow>
 			</TableHeader>
-			{CoinTableBody({list: value.coinList})}
+			{CoinTableBody({list: props.coinList})}
 		</Table>
 	);
 }
