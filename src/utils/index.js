@@ -1,4 +1,5 @@
-export function jsonGet(url) {
+/* @flow */
+export function jsonGet(url: string) {
 	const fetchParams = {
 		method: 'GET',
 		mode: 'cors',

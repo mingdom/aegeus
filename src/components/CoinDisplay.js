@@ -1,6 +1,8 @@
+/* @flow */
 import React from 'react';
 import * as _ from 'lodash';
 import { SocialLinks } from './SocialLinks';
+import { CoinCapItem, TableDataKey } from '../Types';
 
 import {
   Table,
@@ -10,7 +12,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-const coinColumns = {
+const coinColumns: CoinCapItem = {
 	// position24: '#',
 	short: 'Coin',
 	// long: 'Name',
@@ -19,14 +21,15 @@ const coinColumns = {
 	price: 'Price',
 	cap24hrChange: '24h %',
 	social: 'Social'
-}
+};
 
-function formatTableData(key, value, obj) {
-	if (key === 'short') {
+function formatTableData(key: TableDataKey, value, obj) {
+	if (key === "short") {
 		return `${obj.long} (${obj.short})`;
 	}
 
-	const currencyKeys = ['price', 'mktcap', 'usdVolume'];
+	const currencyKeys = ["price", "mktcap", "usdVolume"];
+	
 	if (_.includes(currencyKeys, key)) {
 		const intValue = _.parseInt(value);
 		if (intValue) {
@@ -37,7 +40,7 @@ function formatTableData(key, value, obj) {
 		}
 	}
 
-	if (key === 'social') {
+	if (key === "social") {
 		return (<SocialLinks data={value}/>);
 	}
 
@@ -74,7 +77,7 @@ function CoinTableBody({list}) {
 	);
 }
 
-export function CoinDisplay({coinList }) {
+export function CoinDisplay(value: { coinList: any }) {
 	const headerColumns = _.map(coinColumns, (value, key) => {
 		return (
 			<TableRowColumn
@@ -99,7 +102,7 @@ export function CoinDisplay({coinList }) {
 					{headerColumns}
 				</TableRow>
 			</TableHeader>
-			{CoinTableBody({list: coinList})}
+			{CoinTableBody({list: value.coinList})}
 		</Table>
 	);
 }
