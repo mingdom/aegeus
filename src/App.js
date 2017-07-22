@@ -63,7 +63,9 @@ class AppContainer extends Component {
 				<App>
 					<AppHeader>Aegeus</AppHeader>
 					<div>
-						<FlatButton label='Refresh' onTouchTap={testThis()} />
+						<FlatButton>
+							<i className="material-icons" style={{color: 'black'}}>refresh</i>
+						</FlatButton>
 
 						<CoinDisplay coinList={formatCoinList(coinList)}/>
 					</div>
